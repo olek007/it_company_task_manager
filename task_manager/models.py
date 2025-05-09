@@ -46,7 +46,7 @@ class Worker(AbstractUser):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    deadline = models.DateTimeField()
+    deadline = models.DateField()
     team = models.ForeignKey(
         to=Team, on_delete=models.CASCADE, related_name="project", null=True
     )
@@ -71,7 +71,7 @@ class Task(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField()
-    deadline = models.DateTimeField()
+    deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(
         max_length=255, choices=PRIORITY_CHOICES, default=MEDIUM
@@ -79,7 +79,7 @@ class Task(models.Model):
     task_type = models.ForeignKey(
         to=TaskType, on_delete=models.CASCADE, related_name="task", null=True
     )
-    assignees = models.ManyToManyField(to=Worker, related_name="tasks", null=True)
+    assignees = models.ManyToManyField(to=Worker, related_name="tasks")
 
     class Meta:
         verbose_name = "Task"
