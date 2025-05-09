@@ -31,9 +31,11 @@ class Team(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(
-        Position, on_delete=models.CASCADE, related_name="worker"
+        Position, on_delete=models.CASCADE, related_name="worker", null=True
     )
-    team = models.ForeignKey(to=Team, on_delete=models.CASCADE, related_name="worker")
+    team = models.ForeignKey(
+        to=Team, on_delete=models.CASCADE, related_name="worker", null=True
+    )
 
     class Meta:
         verbose_name = "Worker"
@@ -45,7 +47,9 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateTimeField()
-    team = models.ForeignKey(to=Team, on_delete=models.CASCADE, related_name="project")
+    team = models.ForeignKey(
+        to=Team, on_delete=models.CASCADE, related_name="project", null=True
+    )
 
     class Meta:
         verbose_name = "Project"
@@ -73,9 +77,9 @@ class Task(models.Model):
         max_length=255, choices=PRIORITY_CHOICES, default=MEDIUM
     )
     task_type = models.ForeignKey(
-        to=TaskType, on_delete=models.CASCADE, related_name="task"
+        to=TaskType, on_delete=models.CASCADE, related_name="task", null=True
     )
-    assignees = models.ManyToManyField(to=Worker, related_name="tasks")
+    assignees = models.ManyToManyField(to=Worker, related_name="tasks", null=True)
 
     class Meta:
         verbose_name = "Task"
