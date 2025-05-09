@@ -10,6 +10,9 @@ class TaskType(models.Model):
         verbose_name_plural = "Task Types"
         ordering = ["name"]
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
@@ -18,6 +21,9 @@ class Position(models.Model):
         verbose_name = "Position"
         verbose_name_plural = "Positions"
         ordering = ["name"]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Team(models.Model):
@@ -28,13 +34,16 @@ class Team(models.Model):
         verbose_name_plural = "Teams"
         ordering = ["name"]
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Worker(AbstractUser):
     position = models.ForeignKey(
-        Position, on_delete=models.CASCADE, related_name="worker", null=True
+        Position, on_delete=models.CASCADE, related_name="workers", null=True
     )
     team = models.ForeignKey(
-        to=Team, on_delete=models.CASCADE, related_name="worker", null=True
+        to=Team, on_delete=models.CASCADE, related_name="workers", null=True
     )
 
     class Meta:
@@ -42,19 +51,25 @@ class Worker(AbstractUser):
         verbose_name_plural = "Workers"
         ordering = ["username"]
 
+    def __str__(self) -> str:
+        return f"{self.username} {self.first_name} {self.last_name}"
+
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateField()
     team = models.ForeignKey(
-        to=Team, on_delete=models.CASCADE, related_name="project", null=True
+        to=Team, on_delete=models.CASCADE, related_name="projects", null=True
     )
 
     class Meta:
         verbose_name = "Project"
         verbose_name_plural = "Projects"
         ordering = ["deadline"]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Task(models.Model):
@@ -77,7 +92,7 @@ class Task(models.Model):
         max_length=255, choices=PRIORITY_CHOICES, default=MEDIUM
     )
     task_type = models.ForeignKey(
-        to=TaskType, on_delete=models.CASCADE, related_name="task", null=True
+        to=TaskType, on_delete=models.CASCADE, related_name="tasks", null=True
     )
     assignees = models.ManyToManyField(to=Worker, related_name="tasks")
 
@@ -85,3 +100,6 @@ class Task(models.Model):
         verbose_name = "Task"
         verbose_name_plural = "Tasks"
         ordering = ["priority"]
+
+    def __str__(self) -> str:
+        return f"{self.name} {self.priority}"
