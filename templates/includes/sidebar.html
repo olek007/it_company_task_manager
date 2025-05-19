@@ -1,0 +1,22 @@
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: {{ user.get_username }}</li>
+    <li class="list-group-item">
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-link" type="submit">Logout</button>
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <button class="btn btn-link" type="submit">Login</button>
+      </form>
+    </li>
+  {% endif %}
+
+  <br>
+
+  <li class="list-group-item"><a href="{% url 'task_manager:index' %}">Home</a></li>
+</ul>
