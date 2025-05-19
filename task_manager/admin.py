@@ -18,16 +18,19 @@ admin.site.unregister(Group)
 @admin.register(TaskType)
 class TaskTypeAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Worker)
@@ -41,11 +44,15 @@ class WorkerAdmin(UserAdmin):
         ("Personal info", {"fields": ("first_name", "last_name", "email")}),
         ("Additional info", {"fields": ("position", "team")}),
     )
+    list_filter = ("is_superuser", "is_active")
+    search_fields = UserAdmin.search_fields + ("first_name", "last_name")
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "deadline", "team")
+    list_filter = ("team",)
+    search_fields = ("name", "description")
 
 
 class WorkerInline(admin.TabularInline):
@@ -95,3 +102,5 @@ class TaskAdmin(admin.ModelAdmin):
         ),
     )
     inlines = [WorkerInline]
+    list_filter = ("is_completed", "priority", "task_type")
+    search_fields = ("name", "description")
