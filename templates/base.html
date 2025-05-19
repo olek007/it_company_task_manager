@@ -2,32 +2,33 @@
 <html lang="en">
 
 <head>
-    {% block title %}<title>IT company task manager</title>{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'task_manager/styles.css' %}">
+  {% block title %}<title>IT company task manager</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'task_manager/styles.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
 </head>
 
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2">
+  <div class="row">
+    <div class="col-sm-2">
 
-            {% block sidebar %}
-                {% include "includes/sidebar.html" %}
-            {% endblock %}
+      {% block sidebar %}
+          {% include "includes/sidebar.html" %}
+      {% endblock %}
 
-        </div>
-        <div class="col-sm-10 ">
-
-            {% block content %}{% endblock %}
-
-        </div>
     </div>
+    <div class="col-sm-10 ">
+
+      {% block content %}{% endblock %}
+
+    </div>
+  </div>
 </div>
 </body>
 
