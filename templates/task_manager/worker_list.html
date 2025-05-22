@@ -1,11 +1,48 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Workers</h2>
-  <ul>
-    {% for worker in object_list %}
-      <li>{{ worker }}</li>
-    {% endfor %}
-  </ul>
+  <h2>Workers:</h2>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Team</th>
+        <th scope="col">Tasks No.</th>
+      </tr>
+    </thead>
+      {% for worker in object_list %}
+      <tr>
+          <td>{{ worker.username }}</td>
 
+          {% if worker.first_name %}
+            <td>{{ worker.first_name }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.last_name %}
+            <td>{{ worker.last_name }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.position %}
+            <td>{{ worker.position }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.team %}
+            <td>{{ worker.team }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          <td>{{ worker.tasks.count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
 {% endblock %}
