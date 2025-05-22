@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>Workers</h2>
+  <ul>
+    {% for worker in object_list %}
+      <li>{{ worker }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
