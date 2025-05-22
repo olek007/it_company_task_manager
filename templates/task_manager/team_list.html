@@ -1,10 +1,40 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Teams</h2>
+  <h2>Teams:</h2>
   <ul>
+    <hr>
     {% for team in object_list %}
-      <li>{{ team }}</li>
+      <li>
+        <h3>{{ team.name }}:</h3>
+        <ul>
+          <li>
+            <h4>Projects:</h4>
+            <ul>
+              {% if team.projects.all %}
+                {% for project in team.projects.all %}
+                  <li>{{ project }}</li>
+                {% endfor %}
+              {% else %}
+                <p>Team have no assigned projects.</p>
+              {% endif %}
+            </ul>
+          </li>
+          <li>
+            <h4>Workers:</h4>
+            <ul>
+              {% if team.workers.all %}
+                {% for worker in team.workers.all %}
+                  <li>{{ worker }}</li>
+                {% endfor %}
+              {% else %}
+                <p>Team have no assigned workers.</p>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <hr>
     {% endfor %}
   </ul>
 

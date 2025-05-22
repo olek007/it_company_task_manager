@@ -37,6 +37,9 @@ class PositionListView(ListView):
 class TeamListView(ListView):
     model = Team
     template_name = "task_manager/team_list.html"
+    queryset = (
+        Team.objects.prefetch_related("projects").prefetch_related("workers").all()
+    )
 
 
 class WorkerListView(ListView):
