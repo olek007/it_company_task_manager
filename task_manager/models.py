@@ -94,6 +94,9 @@ class Task(models.Model):
     task_type = models.ForeignKey(
         to=TaskType, on_delete=models.CASCADE, related_name="tasks", null=True
     )
+    project = models.ForeignKey(
+        to=Project, on_delete=models.CASCADE, related_name="tasks", null=True
+    )
     assignees = models.ManyToManyField(to=Worker, related_name="tasks")
 
     class Meta:

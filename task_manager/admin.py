@@ -70,6 +70,7 @@ class TaskAdmin(admin.ModelAdmin):
         "is_completed",
         "priority",
         "task_type",
+        "project",
     ]
     fieldsets = (
         (
@@ -82,6 +83,7 @@ class TaskAdmin(admin.ModelAdmin):
                     "is_completed",
                     "priority",
                     "task_type",
+                    "project",
                 )
             },
         ),
@@ -97,6 +99,7 @@ class TaskAdmin(admin.ModelAdmin):
                     "is_completed",
                     "priority",
                     "task_type",
+                    "project",
                 )
             },
         ),
