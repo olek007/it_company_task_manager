@@ -2,9 +2,10 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from task_manager.forms import SignUpForm
+from task_manager.models import TaskType
 
 
 @login_required
@@ -21,3 +22,8 @@ class SignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.success_url)
+
+
+class TaskTypeListView(ListView):
+    model = TaskType
+    template_name = "task_manager/task_type_list.html"
