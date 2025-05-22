@@ -1,11 +1,35 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Projects</h2>
-  <ul>
-    {% for project in object_list %}
-      <li>{{ project }}</li>
-    {% endfor %}
-  </ul>
+  <h2>Projects:</h2>
 
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Team</th>
+        <th scope="col">Tasks No.</th>
+      </tr>
+    </thead>
+      {% for project in object_list %}
+      <tr>
+          <td>{{ project.name }}</td>
+
+          {% if project.deadline %}
+            <td>{{ project.deadline }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if project.team %}
+            <td>{{ project.team }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          <td>{{ project.tasks.count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
 {% endblock %}
