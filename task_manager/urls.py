@@ -7,6 +7,7 @@ from task_manager.views import (
     TeamListView,
     WorkerListView,
     ProjectListView,
+    TaskListView,
 )
 
 urlpatterns = [
@@ -16,5 +17,6 @@ urlpatterns = [
     path("team/", TeamListView.as_view(), name="team_list"),
     path("worker/", WorkerListView.as_view(), name="worker_list"),
     path("project/", ProjectListView.as_view(), name="project_list"),
+    path("task/", TaskListView.as_view(), name="task_list"),
 ]
 app_name = "task_manager"
