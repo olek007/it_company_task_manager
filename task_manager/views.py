@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView
 
 from task_manager.forms import SignUpForm
-from task_manager.models import TaskType, Position
+from task_manager.models import TaskType, Position, Team
 
 
 @login_required
@@ -32,3 +32,8 @@ class TaskTypeListView(ListView):
 class PositionListView(ListView):
     model = Position
     template_name = "task_manager/position_list.html"
+
+
+class TeamListView(ListView):
+    model = Team
+    template_name = "task_manager/team_list.html"
