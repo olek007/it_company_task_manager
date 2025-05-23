@@ -6,7 +6,7 @@
   <hr>
 
   <ul>
-    {% for task_type in object_list %}
+    {% for task_type in task_type_list %}
       <li><a href="{% url 'task_manager:task_type-detail' pk=task_type.id %}">{{ task_type }}</a></li>
     {% endfor %}
   </ul>
