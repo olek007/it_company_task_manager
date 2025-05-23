@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView
 
@@ -24,27 +25,27 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-class TaskTypeListView(ListView):
+class TaskTypeListView(LoginRequiredMixin, ListView):
     model = TaskType
     template_name = "task_manager/task_type_list.html"
 
 
-class TaskTypeDetailView(DetailView):
+class TaskTypeDetailView(LoginRequiredMixin, DetailView):
     model = TaskType
     template_name = "task_manager/task_type_detail.html"
 
 
-class PositionListView(ListView):
+class PositionListView(LoginRequiredMixin, ListView):
     model = Position
     template_name = "task_manager/position_list.html"
 
 
-class PositionDetailView(DetailView):
+class PositionDetailView(LoginRequiredMixin, DetailView):
     model = Position
     template_name = "task_manager/position_detail.html"
 
 
-class TeamListView(ListView):
+class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"
     queryset = (
@@ -52,36 +53,36 @@ class TeamListView(ListView):
     )
 
 
-class TeamDetailView(DetailView):
+class TeamDetailView(LoginRequiredMixin, DetailView):
     model = Team
     template_name = "task_manager/team_detail.html"
 
 
-class WorkerListView(ListView):
+class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"
 
 
-class WorkerDetailView(DetailView):
+class WorkerDetailView(LoginRequiredMixin, DetailView):
     model = Worker
     template_name = "task_manager/worker_detail.html"
 
 
-class ProjectListView(ListView):
+class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "task_manager/project_list.html"
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
     template_name = "task_manager/project_detail.html"
 
 
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "task_manager/task_detail.html"
