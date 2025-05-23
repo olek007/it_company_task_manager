@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>{{ task.name }}</h2>
+  <hr>
+  <section>
+    Description:
+    <p>{{ task.description }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Deadline: {{ task.deadline|date }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Is complete:
+      {% if task.is_completed %}
+        &#10004;
+      {% else %}
+        &#10060;
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Priority: {{ task.priority }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Task type: {{ task.task_type }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Project: {{ task.project.name }}</p>
+  </section>
+  <hr>
+  <section>
+  Assignees:
+    <ul>
+      {% for assignee in task.assignees.all %}
+      	<li>{{ assignee.username }} {{ assignee.first_name }} {{ assignee.last_name }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <hr>
+{% endblock %}
