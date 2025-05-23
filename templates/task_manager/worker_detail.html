@@ -46,7 +46,7 @@
   <section>
     <p>Team:
       {% if worker.team %}
-        {{ worker.team }}
+        <a href="{% url 'task_manager:team-detail' pk=worker.team.id %}">{{ worker.team }}</a>
       {% else %}
         -
       {% endif %}

@@ -52,6 +52,11 @@ class TeamListView(ListView):
     )
 
 
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = "task_manager/team_detail.html"
+
+
 class WorkerListView(ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"

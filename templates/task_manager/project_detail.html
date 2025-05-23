@@ -13,7 +13,7 @@
   </section>
   <hr>
   <section>
-    <p>Team: {{ project.team }}</p>
+    <p>Team: <a href="{% url 'task_manager:team-detail' pk=project.team.id %}">{{ project.team }}</a></p>
   </section>
   <hr>
   <section>

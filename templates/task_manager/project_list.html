@@ -23,7 +23,7 @@
           {% endif %}
 
           {% if project.team %}
-            <td>{{ project.team }}</td>
+            <td><a href="{% url 'task_manager:team-detail' pk=project.team.id %}">{{ project.team }}</a></td>
           {% else %}
             <td>-</td>
           {% endif %}

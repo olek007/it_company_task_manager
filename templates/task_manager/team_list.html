@@ -6,7 +6,7 @@
     <hr>
     {% for team in object_list %}
       <li>
-        <h3>{{ team.name }}:</h3>
+        <h3><a href="{% url 'task_manager:team-detail' pk=team.id %}">{{ team.name }}:</a></h3>
         <ul>
           <li>
             <h4>Projects:</h4>
