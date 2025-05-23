@@ -57,6 +57,11 @@ class WorkerListView(ListView):
     template_name = "task_manager/worker_list.html"
 
 
+class WorkerDetailView(DetailView):
+    model = Worker
+    template_name = "task_manager/worker_detail.html"
+
+
 class ProjectListView(ListView):
     model = Project
     template_name = "task_manager/project_list.html"

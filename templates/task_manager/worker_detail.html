@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>{{ worker.username }}</h2>
+  <hr>
+  <section>
+    <p>First name:
+      {% if worker.first_name %}
+        {{ worker.first_name }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Last name:
+      {% if worker.last_name %}
+        {{ worker.last_name }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Email:
+      {% if worker.email %}
+        {{ worker.email }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Position:
+      {% if worker.position %}
+        <a href="{% url 'task_manager:position-detail' pk=worker.position.id %}">{{ worker.position }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Team:
+      {% if worker.team %}
+        {{ worker.team }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+  Tasks:
+    <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Is completed</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Task Type</th>
+      </tr>
+    </thead>
+      {% for task in worker.tasks.all %}
+        <tr>
+          <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+
+          {% if task.deadline %}
+            <td>{{ task.deadline }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if task.is_completed %}
+            <td>&#10004;</td>
+          {% else %}
+            <td>&#10060;</td>
+          {% endif %}
+
+          <td>{{ task.priority }}</td>
+          <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+{% endblock %}

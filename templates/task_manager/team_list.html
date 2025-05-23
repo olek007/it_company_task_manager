@@ -25,7 +25,7 @@
             <ul>
               {% if team.workers.all %}
                 {% for worker in team.workers.all %}
-                  <li>{{ worker }}</li>
+                  <li><a href="{% url 'task_manager:worker-detail' pk=worker.id %}">{{ worker }}</a></li>
                 {% endfor %}
               {% else %}
                 <p>Team have no assigned workers.</p>

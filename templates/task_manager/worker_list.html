@@ -15,7 +15,7 @@
     </thead>
       {% for worker in object_list %}
       <tr>
-          <td>{{ worker.username }}</td>
+          <td><a href="{% url 'task_manager:worker-detail' pk=worker.id %}">{{ worker.username }}</a></td>
 
           {% if worker.first_name %}
             <td>{{ worker.first_name }}</td>
@@ -30,7 +30,7 @@
           {% endif %}
 
           {% if worker.position %}
-            <td>{{ worker.position }}</td>
+            <td><a href="{% url 'task_manager:position-detail' pk=worker.position.id %}">{{ worker.position }}</a></td>
           {% else %}
             <td>-</td>
           {% endif %}

@@ -38,7 +38,7 @@
   Assignees:
     <ul>
       {% for assignee in task.assignees.all %}
-      	<li>{{ assignee.username }} {{ assignee.first_name }} {{ assignee.last_name }}</li>
+      	<li><a href="{% url 'task_manager:worker-detail' pk=assignee.id %}">{{ assignee }}</a></li>
       {% endfor %}
     </ul>
   </section>
