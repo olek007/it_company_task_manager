@@ -2,20 +2,44 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>{{ project.name }}</h2>
+
   <hr>
+
   <section>
     Description:
-    <p>{{ project.description }}</p>
+    {% if project.description %}
+      <p>{{ project.description }}</p>
+    {% else %}
+      <p>-</p>
+    {% endif %}
   </section>
+
   <hr>
+
   <section>
-    <p>Deadline: {{ project.deadline|date }}</p>
+    <p>Deadline:
+      {% if project.deadline %}
+        {{ project.deadline|date }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
   </section>
+
   <hr>
+
   <section>
-    <p>Team: <a href="{% url 'task_manager:team-detail' pk=project.team.id %}">{{ project.team }}</a></p>
+    <p>Team:
+      {% if project.team %}
+        <a href="{% url 'task_manager:team-detail' pk=project.team.id %}">{{ project.team }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
   </section>
+
   <hr>
+
   <section>
   Tasks:
     <table class="table table-bordered table-hover">

@@ -2,6 +2,9 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>Task Types:</h2>
+
+  <hr>
+
   <ul>
     {% for task_type in object_list %}
       <li><a href="{% url 'task_manager:task_type-detail' pk=task_type.id %}">{{ task_type }}</a></li>

@@ -2,9 +2,11 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>Teams:</h2>
+
+  <hr>
+
   <ul>
-    <hr>
-    {% for team in object_list %}
+    {% for team in team_list %}
       <li>
         <h3><a href="{% url 'task_manager:team-detail' pk=team.id %}">{{ team.name }}:</a></h3>
         <ul>

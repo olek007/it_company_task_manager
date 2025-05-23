@@ -3,6 +3,8 @@
 {% block content %}
   <h2>Tasks:</h2>
 
+  <hr>
+
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -15,7 +17,7 @@
         <th scope="col">Workers No.</th>
       </tr>
     </thead>
-      {% for task in object_list %}
+      {% for task in task_list %}
         <tr>
           <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
 
@@ -32,8 +34,19 @@
           {% endif %}
 
           <td>{{ task.priority }}</td>
-          <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
-          <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
+
+          {% if task.task_type %}
+            <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if task.project %}
+            <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
+          {% else %}
+           <td> -</td>
+          {% endif %}
+
           <td>{{ task.assignees.count }}</td>
         </tr>
       {% endfor %}

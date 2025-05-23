@@ -2,6 +2,9 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>Positions:</h2>
+
+  <hr>
+
   <ul>
     {% for position in object_list %}
       <li><a href="{% url 'task_manager:position-detail' pk=position.id %}">{{ position }}</a></li>
