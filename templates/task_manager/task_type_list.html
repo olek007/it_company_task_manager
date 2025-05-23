@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Task Types</h2>
+  <h2>Task Types:</h2>
   <ul>
     {% for task_type in object_list %}
       <li>{{ task_type }}</li>
