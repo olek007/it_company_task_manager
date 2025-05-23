@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 from task_manager.forms import SignUpForm
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
@@ -27,6 +27,11 @@ class SignUpView(CreateView):
 class TaskTypeListView(ListView):
     model = TaskType
     template_name = "task_manager/task_type_list.html"
+
+
+class TaskTypeDetailView(DetailView):
+    model = TaskType
+    template_name = "task_manager/task_type_detail.html"
 
 
 class PositionListView(ListView):

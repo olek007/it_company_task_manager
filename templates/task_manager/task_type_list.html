@@ -4,7 +4,7 @@
   <h2>Task Types:</h2>
   <ul>
     {% for task_type in object_list %}
-      <li>{{ task_type }}</li>
+      <li><a href="{% url 'task_manager:task_type-detail' pk=task_type.id %}">{{ task_type }}</a></li>
     {% endfor %}
   </ul>
 
