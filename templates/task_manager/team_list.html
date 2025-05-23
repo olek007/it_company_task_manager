@@ -13,7 +13,7 @@
             <ul>
               {% if team.projects.all %}
                 {% for project in team.projects.all %}
-                  <li>{{ project }}</li>
+                  <li><a href="{% url 'task_manager:project-detail' pk=project.id %}">{{ project.name }}</a></li>
                 {% endfor %}
               {% else %}
                 <p>Team have no assigned projects.</p>

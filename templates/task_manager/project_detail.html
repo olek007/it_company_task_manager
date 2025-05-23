@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Tasks:</h2>
-
-  <table class="table table-bordered table-hover">
+  <h2>{{ project.name }}</h2>
+  <hr>
+  <section>
+    Description:
+    <p>{{ project.description }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Deadline: {{ project.deadline|date }}</p>
+  </section>
+  <hr>
+  <section>
+    <p>Team: {{ project.team }}</p>
+  </section>
+  <hr>
+  <section>
+  Tasks:
+    <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -11,11 +26,10 @@
         <th scope="col">Is completed</th>
         <th scope="col">Priority</th>
         <th scope="col">Task Type</th>
-        <th scope="col">Project</th>
         <th scope="col">Workers No.</th>
       </tr>
     </thead>
-      {% for task in object_list %}
+      {% for task in project.tasks.all %}
         <tr>
           <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
 
@@ -33,9 +47,9 @@
 
           <td>{{ task.priority }}</td>
           <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
-          <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
           <td>{{ task.assignees.count }}</td>
         </tr>
       {% endfor %}
     </table>
+  </section>
 {% endblock %}

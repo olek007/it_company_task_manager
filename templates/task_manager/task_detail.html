@@ -27,11 +27,11 @@
   </section>
   <hr>
   <section>
-    <p>Task type: {{ task.task_type }}</p>
+    <p>Task type: <a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></p>
   </section>
   <hr>
   <section>
-    <p>Project: {{ task.project.name }}</p>
+    <p>Project: <a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></p>
   </section>
   <hr>
   <section>
