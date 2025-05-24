@@ -4,25 +4,28 @@
     <li class="list-group-item">
       <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button class="btn btn-link" type="submit">Logout</button>
+        <input class="btn btn-link" type="submit" value="Logout">
       </form>
     </li>
   {% else %}
     <li class="list-group-item">
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <button class="btn btn-link" type="submit">Login</button>
+        <input class="btn btn-link" type="submit" value="Login">
       </form>
+    </li>
+    <li class="list-group-item">
+      <a class="btn btn-link" href="{% url 'signup' %}">Sign Up</a>
     </li>
   {% endif %}
 
   <br>
 
-  <li class="list-group-item"><a href="{% url 'task_manager:index' %}">Home</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:task_type-list' %}">Task types</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:position-list' %}">Positions</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:team-list' %}">Teams</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:worker-list' %}">Workers</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:project-list' %}">Projects</a></li>
-  <li class="list-group-item"><a href="{% url 'task_manager:task-list' %}">Tasks</a></li>
+  <li class="list-group-item"><a class="btn btn-link" href="{% url 'task_manager:index' %}">Home</a></li>
+  <li class="list-group-item"><a class="btn btn-link" href="{% url 'task_manager:task_type-list' %}">Task types</a></li>
+  <li class="list-group-item"><a class="btn btn-link"  href="{% url 'task_manager:position-list' %}">Positions</a></li>
+  <li class="list-group-item"><a class="btn btn-link"  href="{% url 'task_manager:team-list' %}">Teams</a></li>
+  <li class="list-group-item"><a class="btn btn-link"  href="{% url 'task_manager:worker-list' %}">Workers</a></li>
+  <li class="list-group-item"><a class="btn btn-link"  href="{% url 'task_manager:project-list' %}">Projects</a></li>
+  <li class="list-group-item"><a class="btn btn-link"  href="{% url 'task_manager:task-list' %}">Tasks</a></li>
 </ul>
