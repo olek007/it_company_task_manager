@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
 
-from task_manager.forms import SignUpForm, WorkerForm, ProjectForm
+from task_manager.forms import SignUpForm, WorkerForm, ProjectForm, TaskForm
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -135,3 +135,9 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     queryset = (
         Task.objects.select_related("project").prefetch_related("assignees").all()
     )
+
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    form_class = TaskForm
+    template_name = "task_manager/task_form.html"
+    success_url = reverse_lazy("task_manager:task-list")
