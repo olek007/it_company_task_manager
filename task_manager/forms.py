@@ -1,7 +1,9 @@
+from tkinter.font import names
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from task_manager.models import Worker
+from task_manager.models import Worker, Project, Team
 
 
 class SignUpForm(UserCreationForm):
