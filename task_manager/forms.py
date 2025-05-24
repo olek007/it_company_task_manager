@@ -3,7 +3,7 @@ from tkinter.font import names
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from task_manager.models import Worker, Project, Team
+from task_manager.models import Worker, Project, Team, Position
 
 
 class SignUpForm(UserCreationForm):
@@ -37,3 +37,12 @@ class SignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class WorkerForm(SignUpForm):
+    position = forms.ModelChoiceField(queryset=Position.objects.all(), required=False)
+    team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False)
+
+    class Meta:
+        model = Worker
+        fields = SignUpForm.Meta.fields + ["position", "team"]
