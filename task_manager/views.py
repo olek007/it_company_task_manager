@@ -54,6 +54,13 @@ class PositionDetailView(LoginRequiredMixin, DetailView):
     template_name = "task_manager/position_detail.html"
 
 
+class PositionCreateView(LoginRequiredMixin, CreateView):
+    model = Position
+    template_name = "task_manager/position_form.html"
+    fields = "__all__"
+    success_url = "/positions/"
+
+
 class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"
