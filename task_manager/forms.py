@@ -46,3 +46,14 @@ class WorkerForm(SignUpForm):
     class Meta:
         model = Worker
         fields = SignUpForm.Meta.fields + ["position", "team"]
+
+
+class ProjectForm(forms.ModelForm):
+    deadline = forms.DateField(
+        widget=forms.DateInput(attrs={"format": "yyyy-mm-dd", "type": "date"})
+    )
+    team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False)
+
+    class Meta:
+        model = Project
+        fields = "__all__"
