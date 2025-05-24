@@ -34,6 +34,14 @@ class TaskTypeListView(LoginRequiredMixin, ListView):
 class TaskTypeDetailView(LoginRequiredMixin, DetailView):
     model = TaskType
     template_name = "task_manager/task_type_detail.html"
+    context_object_name = "task_type"
+
+
+class TaskTypeCreateView(LoginRequiredMixin, CreateView):
+    model = TaskType
+    template_name = "task_manager/task_type_form.html"
+    fields = "__all__"
+    success_url = "/task_types/"
 
 
 class PositionListView(LoginRequiredMixin, ListView):
