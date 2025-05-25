@@ -228,3 +228,9 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     template_name = "task_manager/task_form.html"
     success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    template_name = "task_manager/task_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:task-list")
