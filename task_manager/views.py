@@ -157,6 +157,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("task_manager:project-list")
 
 
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = "task_manager/project_form.html"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
