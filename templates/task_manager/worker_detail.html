@@ -3,6 +3,7 @@
 {% block content %}
   <h2>{{ worker.username }}</h2>
   <a class="btn btn-primary" href="{% url 'task_manager:worker-update' pk=worker.id %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'task_manager:worker-delete' pk=worker.id %}">Delete</a>
 
   <hr>
 
