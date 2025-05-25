@@ -97,6 +97,12 @@ class PositionUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("task_manager:position-list")
 
 
+class PositionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Position
+    template_name = "task_manager/position_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:position-list")
+
+
 class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"

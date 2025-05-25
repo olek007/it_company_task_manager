@@ -3,4 +3,5 @@
 {% block content %}
   <h2>{{ position.name }}</h2>
   <a class="btn btn-primary" href="{% url 'task_manager:position-update' pk=position.id %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'task_manager:position-delete' pk=position.id %}">Delete</a>
 {% endblock %}
