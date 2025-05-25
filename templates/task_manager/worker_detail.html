@@ -2,7 +2,10 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>{{ worker.username }}</h2>
+  <a class="btn btn-primary" href="{% url 'task_manager:worker-update' pk=worker.id %}">Update</a>
+
   <hr>
+
   <section>
     <p>First name:
       {% if worker.first_name %}

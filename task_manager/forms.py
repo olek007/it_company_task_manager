@@ -39,13 +39,26 @@ class SignUpForm(UserCreationForm):
         return user
 
 
-class WorkerForm(SignUpForm):
+class WorkerCreateForm(SignUpForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all(), required=False)
     team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False)
 
     class Meta:
         model = Worker
         fields = SignUpForm.Meta.fields + ["position", "team"]
+
+
+class WorkerUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=30, required=True, label="Username")
+    first_name = forms.CharField(max_length=30, required=True, label="First Name")
+    last_name = forms.CharField(max_length=30, required=True, label="Last Name")
+    email = forms.EmailField(required=True, label="Email")
+    position = forms.ModelChoiceField(queryset=Position.objects.all(), required=False)
+    team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False)
+
+    class Meta:
+        model = Worker
+        fields = ["username", "first_name", "last_name", "email", "position", "team"]
 
 
 class ProjectForm(forms.ModelForm):
