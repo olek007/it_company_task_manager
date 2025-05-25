@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from task_manager.forms import SignUpForm, WorkerForm, ProjectForm, TaskForm
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
@@ -43,6 +43,15 @@ class TaskTypeCreateView(LoginRequiredMixin, CreateView):
     template_name = "task_manager/task_type_form.html"
     fields = "__all__"
     success_url = reverse_lazy("task_manager:task_type-list")
+    context_object_name = "task_type"
+
+
+class TaskTypeUpdateView(LoginRequiredMixin, UpdateView):
+    model = TaskType
+    template_name = "task_manager/task_type_form.html"
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:task_type-list")
+    context_object_name = "task_type"
 
 
 class PositionListView(LoginRequiredMixin, ListView):
