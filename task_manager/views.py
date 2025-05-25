@@ -195,6 +195,12 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("task_manager:project-list")
 
 
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+    model = Project
+    template_name = "task_manager/project_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
