@@ -71,6 +71,13 @@ class PositionCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("task_manager:position-list")
 
 
+class PositionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Position
+    template_name = "task_manager/position_form.html"
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:position-list")
+
+
 class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"

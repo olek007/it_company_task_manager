@@ -21,6 +21,7 @@ from task_manager.views import (
     ProjectCreateView,
     TaskCreateView,
     TaskTypeUpdateView,
+    PositionUpdateView,
 )
 
 urlpatterns = [
@@ -36,6 +37,11 @@ urlpatterns = [
     path("positions/", PositionListView.as_view(), name="position-list"),
     path("positions/<int:pk>", PositionDetailView.as_view(), name="position-detail"),
     path("positions/create", PositionCreateView.as_view(), name="position-create"),
+    path(
+        "positions/<int:pk>/update",
+        PositionUpdateView.as_view(),
+        name="position-update",
+    ),
     path("teams/", TeamListView.as_view(), name="team-list"),
     path("teams/<int:pk>", TeamDetailView.as_view(), name="team-detail"),
     path("teams/create", TeamCreateView.as_view(), name="team-create"),
