@@ -2,6 +2,7 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>{{ team.name }}</h2>
+  <a class="btn btn-primary" href="{% url 'task_manager:team-update' pk=team.id %}">Update</a>
 
   <hr>
 

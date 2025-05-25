@@ -101,6 +101,13 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("task_manager:team-list")
 
 
+class TeamUpdateView(LoginRequiredMixin, UpdateView):
+    model = Team
+    template_name = "task_manager/team_form.html"
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:team-list")
+
+
 class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"
