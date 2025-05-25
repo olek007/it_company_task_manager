@@ -184,3 +184,10 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     form_class = TaskForm
     template_name = "task_manager/task_form.html"
     success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "task_manager/task_form.html"
+    success_url = reverse_lazy("task_manager:task-list")
