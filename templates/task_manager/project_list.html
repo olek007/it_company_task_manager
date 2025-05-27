@@ -25,13 +25,18 @@
             <td>-</td>
           {% endif %}
 
-          {% if project.team %}
-            <td><a href="{% url 'task_manager:team-detail' pk=project.team.id %}">{{ project.team }}</a></td>
+          {% if project.teams %}
+            <td><a href="{% url 'task_manager:team-list' %}">{{ project.teams.count }}</a></td>
           {% else %}
             <td>-</td>
           {% endif %}
 
-          <td>{{ project.tasks.count }}</td>
+          {% if project.tasks %}
+            <td><a href="{% url 'task_manager:task-list' %}">{{ project.tasks.count }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
       </tr>
       {% endfor %}
     </table>

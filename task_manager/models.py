@@ -59,9 +59,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateField()
-    team = models.ForeignKey(
-        to=Team, on_delete=models.SET_NULL, related_name="projects", null=True
-    )
+    teams = models.ManyToManyField(to=Team, related_name="projects")
 
     class Meta:
         verbose_name = "Project"

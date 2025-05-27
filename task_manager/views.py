@@ -173,13 +173,13 @@ class WorkerDeleteView(LoginRequiredMixin, DeleteView):
 class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "task_manager/project_list.html"
-    queryset = Project.objects.select_related("team").prefetch_related("tasks").all()
+    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks").all()
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
     template_name = "task_manager/project_detail.html"
-    queryset = Project.objects.select_related("team").prefetch_related("tasks").all()
+    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks").all()
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):

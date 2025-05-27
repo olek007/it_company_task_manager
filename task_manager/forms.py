@@ -65,7 +65,9 @@ class ProjectForm(forms.ModelForm):
     deadline = forms.DateField(
         widget=forms.DateInput(attrs={"format": "yyyy-mm-dd", "type": "date"})
     )
-    team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False)
+    teams = forms.ModelMultipleChoiceField(
+        queryset=Team.objects.all(), widget=forms.CheckboxSelectMultiple, required=False
+    )
 
     class Meta:
         model = Project

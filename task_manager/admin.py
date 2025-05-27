@@ -48,11 +48,41 @@ class WorkerAdmin(UserAdmin):
     search_fields = UserAdmin.search_fields + ("first_name", "last_name")
 
 
+class TeamInline(admin.TabularInline):
+    model = Team.projects.through
+    extra = 0
+    show_change_link = True
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("name", "description", "deadline", "team")
-    list_filter = ("team",)
+    list_display = ("name", "description", "deadline")
     search_fields = ("name", "description")
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "description",
+                    "deadline",
+                )
+            },
+        ),
+    )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "description",
+                    "deadline",
+                )
+            },
+        ),
+    )
+    inlines = [TeamInline]
 
 
 class WorkerInline(admin.TabularInline):
