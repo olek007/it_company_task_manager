@@ -41,6 +41,7 @@ class TaskTypeListView(LoginRequiredMixin, ListView):
     model = TaskType
     template_name = "task_manager/task_type_list.html"
     context_object_name = "task_type_list"
+    paginate_by = 5
 
 
 class TaskTypeDetailView(LoginRequiredMixin, DetailView):
@@ -75,6 +76,7 @@ class TaskTypeDeleteView(LoginRequiredMixin, DeleteView):
 class PositionListView(LoginRequiredMixin, ListView):
     model = Position
     template_name = "task_manager/position_list.html"
+    paginate_by = 5
 
 
 class PositionDetailView(LoginRequiredMixin, DetailView):
@@ -106,6 +108,7 @@ class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"
     queryset = Team.objects.prefetch_related("projects").prefetch_related("workers")
+    paginate_by = 5
 
 
 class TeamDetailView(LoginRequiredMixin, DetailView):
@@ -138,6 +141,7 @@ class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"
     queryset = Worker.objects.select_related("team").prefetch_related("tasks")
+    paginate_by = 5
 
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
@@ -169,6 +173,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "task_manager/project_list.html"
     queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks")
+    paginate_by = 5
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
@@ -199,6 +204,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
+    paginate_by = 5
 
     def get_queryset(self):
         self.extra_context = {"my_tasks": self.request.GET.get("my_tasks")}
