@@ -1,8 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.http import urlencode
 from django.views.generic import (
     CreateView,
     ListView,
@@ -18,6 +19,7 @@ from task_manager.forms import (
     TaskForm,
     WorkerUpdateForm,
 )
+from task_manager.mixin import MyTasksFilterMixin
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -201,59 +203,52 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task_manager:project-list")
 
 
-class TaskListView(LoginRequiredMixin, ListView):
+class TaskListView(LoginRequiredMixin, MyTasksFilterMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
     paginate_by = 5
 
-    def get_queryset(self):
-        self.extra_context = {"my_tasks": self.request.GET.get("my_tasks")}
-        if self.extra_context["my_tasks"]:
-            return (
-                Task.objects.filter(assignees=self.request.user)
-                .select_related("project")
-                .prefetch_related("assignees")
-            )
 
-        return Task.objects.select_related("project").prefetch_related("assignees")
-
-
-class TaskDetailView(LoginRequiredMixin, DetailView):
+class TaskDetailView(LoginRequiredMixin, MyTasksFilterMixin, DetailView):
     model = Task
     template_name = "task_manager/task_detail.html"
-    queryset = Task.objects.select_related("project").prefetch_related("assignees")
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, MyTasksFilterMixin, CreateView):
     form_class = TaskForm
     template_name = "task_manager/task_form.html"
-    success_url = reverse_lazy("task_manager:task-list")
 
 
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, MyTasksFilterMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "task_manager/task_form.html"
-    success_url = reverse_lazy("task_manager:task-list")
 
 
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, MyTasksFilterMixin, DeleteView):
     model = Task
     template_name = "task_manager/task_confirm_delete.html"
-    success_url = reverse_lazy("task_manager:task-list")
 
 
 @login_required()
 def task_set_completed(request, pk):
-    task = Task.objects.get(pk=pk)
+    task = get_object_or_404(Task, pk=pk)
     task.is_completed = True
     task.save(update_fields=["is_completed"])
-    return redirect("task_manager:task-list")
+
+    base_url = reverse_lazy("task_manager:task-list")
+    if request.GET.get("my_tasks"):
+        return redirect(f"{base_url}?{urlencode({'my_tasks': 'True'})}")
+    return redirect(base_url)
 
 
 @login_required()
 def task_set_not_completed(request, pk):
-    task = Task.objects.get(pk=pk)
+    task = get_object_or_404(Task, pk=pk)
     task.is_completed = False
     task.save(update_fields=["is_completed"])
-    return redirect("task_manager:task-list")
+
+    base_url = reverse_lazy("task_manager:task-list")
+    if request.GET.get("my_tasks"):
+        return redirect(f"{base_url}?{urlencode({'my_tasks': 'True'})}")
+    return redirect(base_url)

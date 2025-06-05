@@ -2,8 +2,8 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <h2>{{ task.name }}</h2>
-  <a class="btn btn-primary" href="{% url 'task_manager:task-update' pk=task.id %}">Update</a>
-  <a class="btn btn-danger" href="{% url 'task_manager:task-delete' pk=task.id %}">Delete</a>
+  <a class="btn btn-primary" href="{% url 'task_manager:task-update' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'task_manager:task-delete' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Delete</a>
 
   <hr>
 
@@ -49,21 +49,26 @@
   <hr>
 
   <section>
-    {% if task.task_type %}
-    	<p>Task type: <a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></p>
-    {% else %}
-    	<p>-</p>
-    {% endif %}
+    <p>
+      Task type:
+      {% if task.task_type %}
+          <a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
   </section>
 
   <hr>
 
   <section>
-  {% if task.project %}
-  	<p>Project: <a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></p>
-  {% else %}
-  	<p>-</p>
-  {% endif %}
+  <p>Project:
+    {% if task.project %}
+      <a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a>
+    {% else %}
+      -
+    {% endif %}
+  </p>
   </section>
 
   <hr>
