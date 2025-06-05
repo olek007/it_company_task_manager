@@ -105,17 +105,13 @@ class PositionDeleteView(LoginRequiredMixin, DeleteView):
 class TeamListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"
-    queryset = (
-        Team.objects.prefetch_related("projects").prefetch_related("workers").all()
-    )
+    queryset = Team.objects.prefetch_related("projects").prefetch_related("workers")
 
 
 class TeamDetailView(LoginRequiredMixin, DetailView):
     model = Team
     template_name = "task_manager/team_detail.html"
-    queryset = (
-        Team.objects.prefetch_related("projects").prefetch_related("workers").all()
-    )
+    queryset = Team.objects.prefetch_related("projects").prefetch_related("workers")
 
 
 class TeamCreateView(LoginRequiredMixin, CreateView):
@@ -141,13 +137,13 @@ class TeamDeleteView(LoginRequiredMixin, DeleteView):
 class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"
-    queryset = Worker.objects.select_related("team").prefetch_related("tasks").all()
+    queryset = Worker.objects.select_related("team").prefetch_related("tasks")
 
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
     model = Worker
     template_name = "task_manager/worker_detail.html"
-    queryset = Worker.objects.select_related("team").prefetch_related("tasks").all()
+    queryset = Worker.objects.select_related("team").prefetch_related("tasks")
 
 
 class WorkerCreateView(LoginRequiredMixin, CreateView):
@@ -172,13 +168,13 @@ class WorkerDeleteView(LoginRequiredMixin, DeleteView):
 class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "task_manager/project_list.html"
-    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks").all()
+    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks")
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
     model = Project
     template_name = "task_manager/project_detail.html"
-    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks").all()
+    queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks")
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -205,22 +201,21 @@ class TaskListView(LoginRequiredMixin, ListView):
     template_name = "task_manager/task_list.html"
 
     def get_queryset(self):
-        queryset = (
-            Task.objects.select_related("project").prefetch_related("assignees").all()
-        )
         self.extra_context = {"my_tasks": self.request.GET.get("my_tasks")}
         if self.extra_context["my_tasks"]:
-            return queryset.filter(assignees=self.request.user)
+            return (
+                Task.objects.filter(assignees=self.request.user)
+                .select_related("project")
+                .prefetch_related("assignees")
+            )
 
-        return queryset
+        return Task.objects.select_related("project").prefetch_related("assignees")
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "task_manager/task_detail.html"
-    queryset = (
-        Task.objects.select_related("project").prefetch_related("assignees").all()
-    )
+    queryset = Task.objects.select_related("project").prefetch_related("assignees")
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
