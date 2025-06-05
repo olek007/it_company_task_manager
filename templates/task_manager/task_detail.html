@@ -70,14 +70,14 @@
 
   <section>
   Assignees:
-    {% if task.assignees %}
+    {% if task.assignees.all %}
     	<ul>
       {% for assignee in task.assignees.all %}
       	<li><a href="{% url 'task_manager:worker-detail' pk=assignee.id %}">{{ assignee }}</a></li>
       {% endfor %}
     </ul>
     {% else %}
-    	<p>-</p>
+    	-
     {% endif %}
   </section>
 
