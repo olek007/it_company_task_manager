@@ -16,6 +16,7 @@
         <th scope="col">Task Type</th>
         <th scope="col">Project</th>
         <th scope="col">Workers No.</th>
+        <th scope="col">Complete</th>
       </tr>
     </thead>
       {% for task in task_list %}
@@ -49,6 +50,14 @@
           {% endif %}
 
           <td>{{ task.assignees.count }}</td>
+
+          <td>
+            {% if task.is_completed %}
+              <a class="btn btn-secondary" href="{% url 'task_manager:task-set_not_complete' pk=task.id %}">Undo</a>
+            {% else %}
+              <a class="btn btn-success" href="{% url 'task_manager:task-set_complete' pk=task.id %}">Complete</a>
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </table>

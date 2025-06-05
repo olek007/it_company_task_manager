@@ -32,6 +32,8 @@ from task_manager.views import (
     WorkerDeleteView,
     ProjectDeleteView,
     TaskDeleteView,
+    task_set_completed,
+    task_set_not_completed,
 )
 
 urlpatterns = [
@@ -86,5 +88,11 @@ urlpatterns = [
     path("tasks/create", TaskCreateView.as_view(), name="task-create"),
     path("tasks/<int:pk>/update", TaskUpdateView.as_view(), name="task-update"),
     path("tasks/<int:pk>/delete", TaskDeleteView.as_view(), name="task-delete"),
+    path("tasks/<int:pk>/complete", task_set_completed, name="task-set_complete"),
+    path(
+        "tasks/<int:pk>/not-complete",
+        task_set_not_completed,
+        name="task-set_not_complete",
+    ),
 ]
 app_name = "task_manager"

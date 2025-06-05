@@ -1,6 +1,5 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -234,3 +233,19 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "task_manager/task_confirm_delete.html"
     success_url = reverse_lazy("task_manager:task-list")
+
+
+@login_required()
+def task_set_completed(request, pk):
+    task = Task.objects.get(pk=pk)
+    task.is_completed = True
+    task.save(update_fields=["is_completed"])
+    return redirect("task_manager:task-list")
+
+
+@login_required()
+def task_set_not_completed(request, pk):
+    task = Task.objects.get(pk=pk)
+    task.is_completed = False
+    task.save(update_fields=["is_completed"])
+    return redirect("task_manager:task-list")
