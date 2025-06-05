@@ -203,9 +203,16 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
-    queryset = (
-        Task.objects.select_related("project").prefetch_related("assignees").all()
-    )
+
+    def get_queryset(self):
+        queryset = (
+            Task.objects.select_related("project").prefetch_related("assignees").all()
+        )
+        self.extra_context = {"my_tasks": self.request.GET.get("my_tasks")}
+        if self.extra_context["my_tasks"]:
+            return queryset.filter(assignees=self.request.user)
+
+        return queryset
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):

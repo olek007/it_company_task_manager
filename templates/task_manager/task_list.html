@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Tasks:</h2>
+  <h2>{{ my_tasks|yesno:"My ," }} Tasks:</h2>
   <a class="btn btn-primary" href="{% url 'task_manager:task-create' %}">Create</a>
 
   <hr>
