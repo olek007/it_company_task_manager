@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Task Types:</h2>
-  <a class="btn btn-primary" href="{% url 'task_manager:task_type-create' %}">Create</a>
+
+  <h2>
+    Task Types:
+    <a class="btn btn-primary float-end" href="{% url 'task_manager:task_type-create' %}">Create</a>
+  </h2>
+
+  {% include "includes/searchbar.html" %}
 
   <hr>
 

@@ -1,0 +1,17 @@
+{% load crispy_forms_filters %}
+
+<form class="form-inline" action="" method="get">
+  <div class="container-fluid p-0">
+    <div class="row">
+      <div class="col-sm-10 pe-0">
+        {{ search_form|crispy }}
+      </div>
+      <div class="col-sm-2 ps-0">
+        {% if my_tasks %}
+          <input type="hidden" name="my_tasks" value="True">
+        {% endif %}
+        <input class="btn btn-secondary" type="submit" value="🔎">
+      </div>
+    </div>
+  </div>
+</form>

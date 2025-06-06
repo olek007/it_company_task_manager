@@ -19,7 +19,10 @@ from task_manager.forms import (
     TaskForm,
     WorkerUpdateForm,
 )
-from task_manager.mixin import MyTasksFilterMixin
+from task_manager.mixin import (
+    MyTasksFilterMixin,
+    SearchBarMixin,
+)
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -39,11 +42,12 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
 
 
-class TaskTypeListView(LoginRequiredMixin, ListView):
+class TaskTypeListView(LoginRequiredMixin, SearchBarMixin, ListView):
     model = TaskType
     template_name = "task_manager/task_type_list.html"
     context_object_name = "task_type_list"
     paginate_by = 5
+    search_fields = ["name"]
 
 
 class TaskTypeDetailView(LoginRequiredMixin, DetailView):
@@ -75,10 +79,11 @@ class TaskTypeDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = "task_type"
 
 
-class PositionListView(LoginRequiredMixin, ListView):
+class PositionListView(LoginRequiredMixin, SearchBarMixin, ListView):
     model = Position
     template_name = "task_manager/position_list.html"
     paginate_by = 5
+    search_fields = ["name"]
 
 
 class PositionDetailView(LoginRequiredMixin, DetailView):
@@ -106,11 +111,12 @@ class PositionDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task_manager:position-list")
 
 
-class TeamListView(LoginRequiredMixin, ListView):
+class TeamListView(LoginRequiredMixin, SearchBarMixin, ListView):
     model = Team
     template_name = "task_manager/team_list.html"
     queryset = Team.objects.prefetch_related("projects").prefetch_related("workers")
     paginate_by = 5
+    search_fields = ["name"]
 
 
 class TeamDetailView(LoginRequiredMixin, DetailView):
@@ -139,11 +145,12 @@ class TeamDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task_manager:team-list")
 
 
-class WorkerListView(LoginRequiredMixin, ListView):
+class WorkerListView(LoginRequiredMixin, SearchBarMixin, ListView):
     model = Worker
     template_name = "task_manager/worker_list.html"
     queryset = Worker.objects.select_related("team").prefetch_related("tasks")
     paginate_by = 5
+    search_fields = ["username", "first_name", "last_name"]
 
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
@@ -171,11 +178,12 @@ class WorkerDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task_manager:worker-list")
 
 
-class ProjectListView(LoginRequiredMixin, ListView):
+class ProjectListView(LoginRequiredMixin, SearchBarMixin, ListView):
     model = Project
     template_name = "task_manager/project_list.html"
     queryset = Project.objects.prefetch_related("teams").prefetch_related("tasks")
     paginate_by = 5
+    search_fields = ["name"]
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
@@ -203,10 +211,14 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task_manager:project-list")
 
 
-class TaskListView(LoginRequiredMixin, MyTasksFilterMixin, ListView):
+class TaskListView(LoginRequiredMixin, SearchBarMixin, MyTasksFilterMixin, ListView):
     model = Task
     template_name = "task_manager/task_list.html"
+    queryset = Task.objects.select_related("project", "task_type").prefetch_related(
+        "assignees"
+    )
     paginate_by = 5
+    search_fields = ["name"]
 
 
 class TaskDetailView(LoginRequiredMixin, MyTasksFilterMixin, DetailView):

@@ -93,3 +93,12 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = "__all__"
         exclude = ("is_completed",)
+
+
+class NameSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by name"}),
+    )

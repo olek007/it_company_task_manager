@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h2>Teams:</h2>
-  <a class="btn btn-primary" href="{% url 'task_manager:team-create' %}">Create</a>
+
+  <h2>
+    Teams:
+    <a class="btn btn-primary float-end" href="{% url 'task_manager:team-create' %}">Create</a>
+  </h2>
+
+  {% include "includes/searchbar.html" %}
 
   <hr>
 
