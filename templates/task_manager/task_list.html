@@ -60,9 +60,9 @@
 
           <td>
             {% if task.is_completed %}
-              <a class="btn btn-secondary" href="{% url 'task_manager:task-set_not_complete' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Undo</a>
+              <a class="btn btn-secondary" href="{% url 'task_manager:task-set_not_complete' pk=task.id %}?{{ request.GET.urlencode }}">Undo</a>
             {% else %}
-              <a class="btn btn-success" href="{% url 'task_manager:task-set_complete' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Complete</a>
+              <a class="btn btn-success" href="{% url 'task_manager:task-set_complete' pk=task.id %}?{{ request.GET.urlencode }}">Complete</a>
             {% endif %}
           </td>
         </tr>

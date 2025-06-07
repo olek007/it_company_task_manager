@@ -24,6 +24,7 @@ from task_manager.mixin import (
     SearchBarMixin,
 )
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
+from task_manager.templatetags.query_transform import query_transform
 
 
 @login_required
@@ -249,9 +250,7 @@ def task_set_completed(request, pk):
     task.save(update_fields=["is_completed"])
 
     base_url = reverse_lazy("task_manager:task-list")
-    if request.GET.get("my_tasks"):
-        return redirect(f"{base_url}?{urlencode({'my_tasks': 'True'})}")
-    return redirect(base_url)
+    return redirect(f"{base_url}?{request.GET.urlencode()}")
 
 
 @login_required()
@@ -261,6 +260,4 @@ def task_set_not_completed(request, pk):
     task.save(update_fields=["is_completed"])
 
     base_url = reverse_lazy("task_manager:task-list")
-    if request.GET.get("my_tasks"):
-        return redirect(f"{base_url}?{urlencode({'my_tasks': 'True'})}")
-    return redirect(base_url)
+    return redirect(f"{base_url}?{request.GET.urlencode()}")
