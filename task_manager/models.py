@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Case, When, IntegerField
 
 
 class TaskType(models.Model):
@@ -70,8 +71,27 @@ class Project(models.Model):
         return self.name
 
 
+class TaskQuerySet(models.QuerySet):
+    def priority_order(self):
+        return self.annotate(
+            priority_order=Case(
+                When(priority="URGENT", then=1),
+                When(priority="HIGH", then=2),
+                When(priority="MEDIUM", then=3),
+                When(priority="LOW", then=4),
+                default=3,
+                output_field=IntegerField(),
+            )
+        ).order_by("is_completed", "-deadline", "priority_order")
+
+
+class TaskManager(models.Manager):
+    def get_queryset(self):
+        return TaskQuerySet(self.model, using=self._db).priority_order()
+
+
 class Task(models.Model):
-    URGENT = "Urgent"
+    URGENT = "URGENT"
     HIGH = "HIGH"
     MEDIUM = "MEDIUM"
     LOW = "LOW"
@@ -97,10 +117,11 @@ class Task(models.Model):
     )
     assignees = models.ManyToManyField(to=Worker, related_name="tasks")
 
+    objects = TaskManager()
+
     class Meta:
         verbose_name = "Task"
         verbose_name_plural = "Tasks"
-        ordering = ["priority"]
 
     def __str__(self) -> str:
         return f"{self.name} {self.priority}"
