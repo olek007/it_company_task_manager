@@ -2,6 +2,8 @@
 
 A Django-based task and project management system designed to organize tasks, projects, and teams. It includes support for custom user roles, task types, priorities, and structured project organization.
 
+---
+
 ## Features
 
 * Custom `Worker` model (extends `AbstractUser`)
@@ -10,6 +12,8 @@ A Django-based task and project management system designed to organize tasks, pr
 * Tasks linked to projects, teams, workers, and types
 * Task priority and completion tracking
 * Custom queryset and manager for task priority ordering
+
+---
 
 ## Database diagram
 
@@ -111,14 +115,34 @@ This is achieved using a custom `TaskQuerySet` and `TaskManager`.
 
 ---
 
-## Setup (Assuming Django is Installed)
+## Setup Instructions
+
+### 1. Run migrations:
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+```
+
+### 2. Load JSON fixture:
+
+```bash
+python manage.py loaddata task_manager_db_data.json
+```
+
+### 3. Create a superuser:
+
+```bash
 python manage.py createsuperuser
+```
+
+### 4. Start the development server:
+
+```bash
 python manage.py runserver
 ```
+
+---
 
 ## Admin Features
 
