@@ -1,5 +1,3 @@
-from tkinter.font import names
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
