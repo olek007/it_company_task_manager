@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from django.utils.http import urlencode
 
 from task_manager.forms import NameSearchForm
-from task_manager.models import Task
 
 
 class MyTasksFilterMixin:

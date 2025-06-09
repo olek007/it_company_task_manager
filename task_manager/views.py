@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.utils.http import urlencode
 from django.views.generic import (
     CreateView,
     ListView,
@@ -24,7 +23,6 @@ from task_manager.mixin import (
     SearchBarMixin,
 )
 from task_manager.models import TaskType, Position, Team, Worker, Project, Task
-from task_manager.templatetags.query_transform import query_transform
 
 
 @login_required
