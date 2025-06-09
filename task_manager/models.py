@@ -53,7 +53,7 @@ class Worker(AbstractUser):
         ordering = ["username"]
 
     def __str__(self) -> str:
-        return f"{self.username} {self.first_name} {self.last_name}"
+        return f"{self.username} {self.first_name} {self.last_name}".strip()
 
 
 class Project(models.Model):
