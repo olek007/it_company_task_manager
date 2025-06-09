@@ -124,4 +124,4 @@ class Task(models.Model):
         verbose_name_plural = "Tasks"
 
     def __str__(self) -> str:
-        return f"{self.name} {self.priority}"
+        return f"{self.name}"
