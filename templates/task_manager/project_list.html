@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+  <h2>
+    Projects:
+    <a class="btn btn-primary float-end" href="{% url 'task_manager:project-create' %}">Create</a>
+  </h2>
+
+  {% include "includes/searchbar.html" %}
+
+  <hr>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Team</th>
+        <th scope="col">Tasks No.</th>
+      </tr>
+    </thead>
+      {% for project in project_list %}
+      <tr>
+          <td><a href="{% url 'task_manager:project-detail' pk=project.id %}">{{ project.name }}</a></td>
+
+          {% if project.deadline %}
+            <td>{{ project.deadline }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if project.teams %}
+            <td><a href="{% url 'task_manager:team-list' %}">{{ project.teams.count }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if project.tasks %}
+            <td><a href="{% url 'task_manager:task-list' %}">{{ project.tasks.count }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+      </tr>
+      {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>{{ worker.username }}</h2>
+  <a class="btn btn-primary" href="{% url 'task_manager:worker-update' pk=worker.id %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'task_manager:worker-delete' pk=worker.id %}">Delete</a>
+
+  <hr>
+
+  <section>
+    <p>First name:
+      {% if worker.first_name %}
+        {{ worker.first_name }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Last name:
+      {% if worker.last_name %}
+        {{ worker.last_name }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Email:
+      {% if worker.email %}
+        {{ worker.email }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Position:
+      {% if worker.position %}
+        <a href="{% url 'task_manager:position-detail' pk=worker.position.id %}">{{ worker.position }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+    <p>Team:
+      {% if worker.team %}
+        <a href="{% url 'task_manager:team-detail' pk=worker.team.id %}">{{ worker.team }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+  <hr>
+  <section>
+  Tasks:
+    <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Is completed</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Task Type</th>
+      </tr>
+    </thead>
+      {% for task in worker.tasks.all %}
+        <tr>
+          <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+
+          {% if task.deadline %}
+            <td>{{ task.deadline }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if task.is_completed %}
+            <td>&#10004;</td>
+          {% else %}
+            <td>&#10060;</td>
+          {% endif %}
+
+          <td>{{ task.priority }}</td>
+          {% if task.task_type %}
+            <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+{% endblock %}

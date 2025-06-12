@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>{{ task.name }}</h2>
+  <a class="btn btn-primary" href="{% url 'task_manager:task-update' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'task_manager:task-delete' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">Delete</a>
+
+  <hr>
+
+  <section>
+    Description:
+    {% if task.description %}
+      <p>{{ task.description }}</p>
+    {% else %}
+      <p>-</p>
+    {% endif %}
+  </section>
+
+  <hr>
+
+  <section>
+    <p>Deadline:
+      {% if task.deadline %}
+        {{ task.deadline|date }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+    <p>Is complete:
+      {% if task.is_completed %}
+        &#10004;
+      {% else %}
+        &#10060;
+      {% endif %}
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+    <p>Priority: {{ task.priority }}</p>
+  </section>
+
+  <hr>
+
+  <section>
+    <p>
+      Task type:
+      {% if task.task_type %}
+          <a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a>
+      {% else %}
+        -
+      {% endif %}
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+  <p>Project:
+    {% if task.project %}
+      <a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a>
+    {% else %}
+      -
+    {% endif %}
+  </p>
+  </section>
+
+  <hr>
+
+  <section>
+  Assignees:
+    {% if task.assignees.all %}
+    	<ul>
+      {% for assignee in task.assignees.all %}
+      	<li><a href="{% url 'task_manager:worker-detail' pk=assignee.id %}">{{ assignee }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    	-
+    {% endif %}
+  </section>
+
+  <hr>
+
+{% endblock %}

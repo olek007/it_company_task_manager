@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+  <h2>
+    Workers:
+    <a class="btn btn-primary float-end" href="{% url 'task_manager:worker-create' %}">Create</a>
+  </h2>
+
+  {% include "includes/searchbar.html" %}
+
+  <hr>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Team</th>
+        <th scope="col">Tasks No.</th>
+      </tr>
+    </thead>
+      {% for worker in worker_list %}
+      <tr>
+          <td><a href="{% url 'task_manager:worker-detail' pk=worker.id %}">{{ worker.username }}</a></td>
+
+          {% if worker.first_name %}
+            <td>{{ worker.first_name }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.last_name %}
+            <td>{{ worker.last_name }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.position %}
+            <td><a href="{% url 'task_manager:position-detail' pk=worker.position.id %}">{{ worker.position }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if worker.team %}
+            <td><a href="{% url 'task_manager:team-detail' pk=worker.team.id %}">{{ worker.team }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          <td>{{ worker.tasks.count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Welcome to IT Company Task Manager</h1>
+        <p class="lead">Manage tasks, track progress, and boost team productivity.</p>
+    </div>
+</div>
+
+<div class="container text-center py-5 px-3 px-md-5">
+    <h2 class="mb-4">Key Features</h2>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-shadow">
+                <div class="card-body">
+                    <i class="fas fa-tasks fa-2x mb-3 text-primary" aria-hidden="true"></i>
+                    <span class="sr-only">Task Assignment Icon</span>
+                    <h5 class="card-title">Task Assignment</h5>
+                    <p class="card-text">Assign tasks with deadlines and priorities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-shadow">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-2x mb-3 text-primary" aria-hidden="true"></i>
+                    <span class="sr-only">Progress Tracking Icon</span>
+                    <h5 class="card-title">Progress Tracking</h5>
+                    <p class="card-text">Visual indicators for task status and updates.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-shadow">
+                <div class="card-body">
+                    <i class="fas fa-user-shield fa-2x mb-3 text-primary" aria-hidden="true"></i>
+                    <span class="sr-only">User Roles Icon</span>
+                    <h5 class="card-title">User Roles</h5>
+                    <p class="card-text">Separate manager and employee access.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm hover-shadow">
+                <div class="card-body">
+                    <i class="fas fa-tachometer-alt fa-2x mb-3 text-primary" aria-hidden="true"></i>
+                    <span class="sr-only">Dashboard Overview Icon</span>
+                    <h5 class="card-title">Dashboard Overview</h5>
+                    <p class="card-text">See team performance at a glance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 px-3 px-md-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h3 class="card-title mb-3">About the Site</h3>
+            <p class="card-text">
+                <strong>IT Company Task Manager</strong> is a smart and efficient web application built to streamline workflow in IT organizations. It helps teams stay organized, focused, and aligned by centralizing task management, communication, and tracking.
+            </p>
+            <p class="card-text">
+                Designed with <strong>Django</strong> and powered by <strong>Bootstrap</strong>, this platform is both robust and user-friendly. Whether you're a small startup or a large team, this tool adapts to your workflow.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

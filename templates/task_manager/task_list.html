@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+  <h2>
+    {{ my_tasks|yesno:"My ," }} Tasks:
+    <a class="btn btn-primary float-end" href="{% url 'task_manager:task-create' %}{% if my_tasks %}?my_tasks=True{% endif %}">Create</a>
+  </h2>
+
+  {% include "includes/searchbar.html" %}
+
+  <hr>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Is completed</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Task Type</th>
+        <th scope="col">Project</th>
+        <th scope="col">Workers No.</th>
+        <th scope="col">Complete</th>
+      </tr>
+    </thead>
+      {% for task in task_list %}
+        <tr>
+          <td>
+            <a href="{% url 'task_manager:task-detail' pk=task.id %}{% if my_tasks %}?my_tasks=True{% endif %}">{{ task.name }}</a>
+          </td>
+
+          {% if task.deadline %}
+            <td>{{ task.deadline }}</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if task.is_completed %}
+            <td>&#10004;</td>
+          {% else %}
+            <td>&#10060;</td>
+          {% endif %}
+
+          <td>{{ task.priority }}</td>
+
+          {% if task.task_type %}
+            <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
+
+          {% if task.project %}
+            <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
+          {% else %}
+           <td> -</td>
+          {% endif %}
+
+          <td>{{ task.assignees.count }}</td>
+
+          <td>
+            {% if task.is_completed %}
+              <a class="btn btn-secondary" href="{% url 'task_manager:task-set_not_complete' pk=task.id %}?{{ request.GET.urlencode }}">Undo</a>
+            {% else %}
+              <a class="btn btn-success" href="{% url 'task_manager:task-set_complete' pk=task.id %}?{{ request.GET.urlencode }}">Complete</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}
