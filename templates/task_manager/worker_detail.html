@@ -86,7 +86,11 @@
           {% endif %}
 
           <td>{{ task.priority }}</td>
-          <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+          {% if task.task_type %}
+            <td><a href="{% url 'task_manager:task_type-detail' pk=task.task_type.id %}">{{ task.task_type }}</a></td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </table>
